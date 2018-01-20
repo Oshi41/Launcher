@@ -51,6 +51,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -83,6 +85,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AuthorizationChecker.cs" />
+    <Compile Include="Models\CryptoWorker.cs" />
+    <Compile Include="Models\DownloadingArbiter.cs" />
+    <Compile Include="Models\HashChecker.cs" />
+    <Compile Include="Models\Installers\FolderDownloader.cs" />
+    <Compile Include="Models\Installers\LauncherInstaller.cs" />
+    <Compile Include="Models\MineStat.cs" />
+    <Compile Include="Models\Singleton\Interfaces.cs" />
+    <Compile Include="Models\Singleton\IoCContainer.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="MVVM\RelayCommandAsync.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
@@ -104,7 +115,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -116,6 +129,7 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

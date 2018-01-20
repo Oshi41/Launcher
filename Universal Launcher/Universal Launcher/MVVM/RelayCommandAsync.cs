@@ -57,5 +57,4 @@ namespace Universal_Launcher.MVVM
             CommandManager.InvalidateRequerySuggested();
         }
     }
-
 }
