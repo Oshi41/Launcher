@@ -2,6 +2,8 @@
 using System.IO.Compression;
 using System.Threading.Tasks;
 using Universal_Launcher.Models.Singleton;
+using Universal_Launcher.Singleton;
+using Universal_Launcher.ViewModels;
 
 namespace Universal_Launcher.Models.Installers
 {

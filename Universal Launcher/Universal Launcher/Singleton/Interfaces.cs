@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Universal_Launcher.ViewModels;
 
-namespace Universal_Launcher.Models.Singleton
+namespace Universal_Launcher.Singleton
 {
     /// <summary>
     ///     Сервис показа сообщения в Popup

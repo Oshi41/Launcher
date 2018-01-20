@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Json;
+using Universal_Launcher.Singleton;
 
 namespace Universal_Launcher.Models
 {

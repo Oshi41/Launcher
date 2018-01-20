@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Universal_Launcher.Models.Singleton;
+using Universal_Launcher.Singleton;
+using Universal_Launcher.ViewModels;
 
 namespace Universal_Launcher.Models.Installers
 {
@@ -14,12 +17,12 @@ namespace Universal_Launcher.Models.Installers
         private const string LauncherLink = "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/qvBLvXBo3NJXB5";
         private readonly INameService _nameService;
         private readonly IShowMessage _showMessageService;
-
-        private string _origin;
         private readonly string _tempDir;
 
         private readonly string _tempLaunName = "temp.zip";
         private readonly string _tempUpdName = "upd.zip";
+
+        private string _origin;
 
         public LauncherInstaller()
         {
@@ -49,10 +52,10 @@ namespace Universal_Launcher.Models.Installers
             DownloadingViewModel download;
 
             download = new DownloadingViewModel(UpdaterLink, unpackedUpdName);
-            await _showMessageService.ShowWorkerAsync(download, false);
+            await _showMessageService.ShowWorkerAsync(download, () => download.Start());
 
             download = new DownloadingViewModel(LauncherLink, unpackedLaunName);
-            await _showMessageService.ShowWorkerAsync(download, false);
+            await _showMessageService.ShowWorkerAsync(download, () => download.Start());
 
             // extract all of it
             string launName;

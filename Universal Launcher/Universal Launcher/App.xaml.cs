@@ -7,5 +7,6 @@ namespace Universal_Launcher
     /// </summary>
     public partial class App : Application
     {
+        public static string ProjectName = "Titan Project";
     }
 }
