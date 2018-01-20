@@ -68,6 +68,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\RelayCommand.cs" />
+    <Compile Include="MVVM\RelayCommandAsync.cs" />
+    <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
