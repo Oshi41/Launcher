@@ -6,9 +6,8 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Universal_Launcher.Installers;
 using Universal_Launcher.Models;
-using Universal_Launcher.Models.Installers;
-using Universal_Launcher.Models.Singleton;
 using Universal_Launcher.MVVM;
 using Universal_Launcher.Singleton;
 

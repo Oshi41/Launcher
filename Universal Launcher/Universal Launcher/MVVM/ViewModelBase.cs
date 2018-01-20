@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Universal_Launcher.Annotations;
+using Universal_Launcher.Properties;
 
 namespace Universal_Launcher.MVVM
 {

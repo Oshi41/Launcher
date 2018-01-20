@@ -5,16 +5,14 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Universal_Launcher.Models.Singleton;
 using Universal_Launcher.Singleton;
+using Universal_Launcher.Static_Links;
 using Universal_Launcher.ViewModels;
 
-namespace Universal_Launcher.Models.Installers
+namespace Universal_Launcher.Installers
 {
     internal class LauncherInstaller
     {
-        private const string UpdaterLink = "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/kbzF2VrR3Q2uUT";
-        private const string LauncherLink = "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/qvBLvXBo3NJXB5";
         private readonly INameService _nameService;
         private readonly IShowMessage _showMessageService;
         private readonly string _tempDir;
@@ -51,10 +49,10 @@ namespace Universal_Launcher.Models.Installers
             // download all needed
             DownloadingViewModel download;
 
-            download = new DownloadingViewModel(UpdaterLink, unpackedUpdName);
+            download = new DownloadingViewModel(Properties.Resources.UpdaterLink, unpackedUpdName);
             await _showMessageService.ShowWorkerAsync(download, () => download.Start());
 
-            download = new DownloadingViewModel(LauncherLink, unpackedLaunName);
+            download = new DownloadingViewModel(Properties.Resources.LauncherLink, unpackedLaunName);
             await _showMessageService.ShowWorkerAsync(download, () => download.Start());
 
             // extract all of it

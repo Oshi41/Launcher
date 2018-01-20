@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Universal_Launcher.Models.Singleton
+namespace Universal_Launcher.Singleton
 {
     public class IoCContainer
     {

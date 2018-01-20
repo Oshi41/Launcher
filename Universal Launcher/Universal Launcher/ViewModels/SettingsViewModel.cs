@@ -5,9 +5,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Universal_Launcher.Installers;
 using Universal_Launcher.Models;
-using Universal_Launcher.Models.Installers;
-using Universal_Launcher.Models.Singleton;
 using Universal_Launcher.MVVM;
 using Universal_Launcher.Singleton;
 
@@ -22,7 +21,7 @@ namespace Universal_Launcher.ViewModels
 
             OpenFolder = new RelayCommand(OnOpenFolder);
             DeleteFolder = new RelayCommandAsync(OnDeleteFolder, CanDeleteFolder);
-            OpenSite = new RelayCommand(() => Process.Start("https://account.ely.by/login"));
+            OpenSite = new RelayCommand(() => Process.Start(Properties.Resources.ElyLoginLink));
             UpdateLauncher = new RelayCommandAsync(OnUpdateLauncher);
 
             _localPath =

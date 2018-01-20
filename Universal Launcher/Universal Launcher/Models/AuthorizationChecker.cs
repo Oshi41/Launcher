@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Json;
 using Universal_Launcher.Singleton;
+using Universal_Launcher.Static_Links;
 
 namespace Universal_Launcher.Models
 {
@@ -28,7 +29,7 @@ namespace Universal_Launcher.Models
         /// <returns></returns>
         public async Task<Guid> GetID()
         {
-            var loginString = "https://authserver.ely.by/api/users/profiles/minecraft/" + _login;
+            var loginString = Properties.Resources.ElyAuthorizationLink + _login;
             var response = await _client.GetAsync(loginString);
             var jsonString = await response.Content.ReadAsStringAsync();
             try
@@ -56,7 +57,7 @@ namespace Universal_Launcher.Models
 
             var message = $"username={_login}&password={_iPass.GetPassword()}&clientToken={guid}";
             var content = new StringContent(message);
-            var response = await _client.PostAsync("https://authserver.ely.by/auth/authenticate", content);
+            var response = await _client.PostAsync(Properties.Resources.ElySignInLink, content);
             var jsonString = await response.Content.ReadAsStringAsync();
             var json = JsonParser.FromJson(jsonString);
             return json.ContainsKey("accessToken")

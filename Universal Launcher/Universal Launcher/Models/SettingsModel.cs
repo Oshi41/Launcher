@@ -3,9 +3,9 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using System.Xml.Serialization;
-using Universal_Launcher.Models.Singleton;
 using Universal_Launcher.Settings;
 using Universal_Launcher.Singleton;
+using Universal_Launcher.Static_Links;
 
 namespace Universal_Launcher.Models
 {
@@ -26,10 +26,6 @@ namespace Universal_Launcher.Models
 
         private readonly IFolderService _folderService;
 
-        /// <summary>
-        ///     Файлик для инфы о проекте
-        /// </summary>
-        private const string _link = "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/fHMksVWM3Pw3Dx";
 
         #endregion
 
@@ -114,7 +110,7 @@ namespace Universal_Launcher.Models
             {
                 using (var client = new WebClient())
                 {
-                    client.DownloadFile(new Uri(_link), tempName);
+                    client.DownloadFile(new Uri(Properties.Resources.LauncherSettingsLink), tempName);
                     client.Dispose();
                 }
 

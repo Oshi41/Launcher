@@ -78,6 +78,7 @@
     <Compile Include="Settings\Server.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SystemSettings.cs" />
+    <Compile Include="Static Links\StaticLinks.cs" />
     <Compile Include="ViewModels\DownloadingViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ServerViewModel.cs" />
