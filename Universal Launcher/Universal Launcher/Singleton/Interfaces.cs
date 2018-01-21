@@ -15,7 +15,7 @@ namespace Universal_Launcher.Singleton
         /// <param name="content">Контент</param>
         /// <param name="canBeClosedByUser">Может ли пользователь закрыть окно</param>
         /// <returns></returns>
-        Task<bool> ShowMessageAsync(object content, bool canBeClosedByUser = true);
+        Task<bool> ShowMessageAsync(object content, bool canBeClosedByUser = true, bool isError = false);
 
         /// <summary>
         ///     Показываем окошко, которое исчезнет после выполнения action
@@ -128,7 +128,7 @@ namespace Universal_Launcher.Singleton
         /// </summary>
         /// <param name="newPassword">Новый пароль</param>
         /// <returns></returns>
-        string SetPassword(string newPassword);
+        void SetPassword(string newPassword);
 
         event EventHandler<bool> CheckPassword;
     }

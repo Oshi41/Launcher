@@ -5,7 +5,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using Universal_Launcher.Settings;
 using Universal_Launcher.Singleton;
-using Universal_Launcher.Static_Links;
 
 namespace Universal_Launcher.Models
 {

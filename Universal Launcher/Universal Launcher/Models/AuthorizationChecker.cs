@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Json;
 using Universal_Launcher.Singleton;
-using Universal_Launcher.Static_Links;
 
 namespace Universal_Launcher.Models
 {

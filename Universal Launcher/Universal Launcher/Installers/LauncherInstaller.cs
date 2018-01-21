@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Universal_Launcher.Singleton;
-using Universal_Launcher.Static_Links;
 using Universal_Launcher.ViewModels;
 
 namespace Universal_Launcher.Installers

@@ -4,7 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Universal_Launcher"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid />
+        xmlns:views="clr-namespace:Universal_Launcher.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Universal_Launcher.ViewModels"
+        xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        WindowStyle="None" Height="520" Width="346"
+        mc:Ignorable="d" SizeToContent="Height" 
+        ResizeMode="NoResize"
+        PreviewMouseLeftButtonDown="OnDragMove">
+
+
+    <Window.DataContext>
+        <viewModels:MainViewModel />
+    </Window.DataContext>
+
+    <Grid Width="Auto" Height="Auto">
+        <materialDesign:Flipper HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch"
+                                Background="{DynamicResource PrimaryHueDarkBrush}">
+            <materialDesign:Flipper.FrontContent>
+                <views:MainView x:Name="AuthView" />
+            </materialDesign:Flipper.FrontContent>
+
+            <materialDesign:Flipper.BackContent>
+                <views:SettingsView DataContext="{Binding SettingsViewModel}" />
+            </materialDesign:Flipper.BackContent>
+        </materialDesign:Flipper>
+
+        <materialDesign:DialogHost x:Name="DialogHost"
+                                   Identifier="DialogHost"/>
+    </Grid>
+
 </Window>

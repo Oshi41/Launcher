@@ -19,7 +19,7 @@ namespace Universal_Launcher.ViewModels
         {
             // подписываюсь на событие при полной готовности к загрузке
             // иначе мы не получим IPasswordService
-            Application.Current.Activated += Initialize;
+            Application.Current.LoadCompleted += Initialize;
         }
 
         private async void Initialize(object sender, EventArgs eventArgs)
