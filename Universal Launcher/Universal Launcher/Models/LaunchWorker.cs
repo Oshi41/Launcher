@@ -105,12 +105,12 @@ namespace Universal_Launcher.Models
 
             _process.ErrorDataReceived += (sender, eventArgs) => _errorOutput += "\n" + eventArgs.Data;
 
-            if (_debugMode)
-            {
-                _process.OutputDataReceived += (sender, eventArgs) => Console.WriteLine(eventArgs.Data);
-                AllocConsole();
-                SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
-            }
+            //if (_debugMode)
+            //{
+            //    _process.OutputDataReceived += (sender, eventArgs) => Console.WriteLine(eventArgs.Data);
+            //    AllocConsole();
+            //    SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
+            //}
 
 
             await Task.Run(() => _process.WaitForExit());

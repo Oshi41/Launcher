@@ -80,6 +80,7 @@
                 </Grid>
             </Grid>
 
+            <!-- TODO make debug-->
             <CheckBox Grid.Row="2"
                       Content="Оптимизовать Java (experimental)"
                       Margin="5,0,0,5"
@@ -89,7 +90,7 @@
             <CheckBox Grid.Row="3"
                       Content="Показать консоль запуска (debug mode)"
                       Margin="5,0,0,24"
-                      IsChecked="{Binding DebugMode}"
+                      IsChecked="False" IsEnabled="False"
                       Foreground="{DynamicResource MaterialDesignBodyLight}"
                       Style="{StaticResource MaterialDesignAccentCheckBox}" />
 
