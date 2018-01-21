@@ -133,8 +133,10 @@ namespace Universal_Launcher.ViewModels
                 accessToken = "null";
             }
 
+            Save();
+
             // запускаем игру
-            using (var launcher = new LaunchWorker(RootFolder, SettingsViewModel.Java64Path,
+            using (var launcher = new LaunchWorker(SettingsViewModel.GetBaseFolder, SettingsViewModel.Java64Path,
                 SettingsViewModel.Memory, Login, id.ToString(), accessToken, SettingsViewModel.UseJavaArgs,
                 SettingsViewModel.DebugMode))
             {

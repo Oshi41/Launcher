@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Universal_Launcher.Singleton;
 
 namespace Universal_Launcher.Models
 {
@@ -12,7 +11,6 @@ namespace Universal_Launcher.Models
         private readonly string _accessToken;
         private readonly bool _debugMode;
 
-        private readonly IFolderService _folderService;
         private readonly string _id;
         private readonly string _javaHome64;
         private readonly string _login;
@@ -105,7 +103,7 @@ namespace Universal_Launcher.Models
             _process.BeginOutputReadLine();
 
 
-            _process.ErrorDataReceived += (sender, eventArgs) => _errorOutput += "/n" + eventArgs.Data;
+            _process.ErrorDataReceived += (sender, eventArgs) => _errorOutput += "\n" + eventArgs.Data;
 
             if (_debugMode)
             {
@@ -126,7 +124,6 @@ namespace Universal_Launcher.Models
 
             _process.Close();
         }
-
 
         private bool ConsoleCtrlCheck(CtrlTypes ctrlType)
         {
@@ -160,10 +157,12 @@ namespace Universal_Launcher.Models
 
         #region Base java args
 
-        private string GetBaseJavaArgs(string java64Path, int memory)
+        private string GetBaseJavaArgs( int memory)
         {
-            var temp = $"\"{java64Path}\" ";                    // Java executable path
-            temp += $"-Xmx{memory}M "; // Set min amount of memory
+            // так как указываем путь к файлу в StartInfo процесса,
+            // путь к джаве в аргументах НЕ указываем
+            //var temp = $"\"{java64Path}\" ";                    // Java executable path
+            var temp = $"-Xmx{memory}M "; // Set min amount of memory
 
             // some base parameters
             temp += "-Dfml.ignoreInvalidMinecraftCertificates=true " +
@@ -308,7 +307,7 @@ namespace Universal_Launcher.Models
             bool useExpArgs = false,
             bool debug = false)
         {
-            var temp = GetBaseJavaArgs(java64Path, memory);
+            var temp = GetBaseJavaArgs(memory);
 
             if (useExpArgs)
                 temp += GetJavaArgsExp(memory);
