@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using Universal_Launcher.MVVM;
 
@@ -7,25 +6,9 @@ namespace Universal_Launcher.ViewModels
 {
     public class MessageViewModel : ViewModelBase
     {
-        private string _text;
         private bool _isError;
         private bool _result;
-
-
-        public string Text
-        {
-            get { return _text; }
-            set {  Set(ref _text, value); }
-        }
-
-        public bool IsError
-        {
-            get { return _isError; }
-            set { Set(ref _isError, value); }
-        }
-
-        public ICommand Command { get; set; }
-        public bool Result => _result;
+        private string _text;
 
 
         public MessageViewModel(string text, bool isError)
@@ -37,9 +20,25 @@ namespace Universal_Launcher.ViewModels
         }
 
 
+        public string Text
+        {
+            get => _text;
+            set => Set(ref _text, value);
+        }
+
+        public bool IsError
+        {
+            get => _isError;
+            set => Set(ref _isError, value);
+        }
+
+        public ICommand Command { get; set; }
+        public bool Result => _result;
+
+
         private void OnClick(object obj)
         {
-            Boolean.TryParse(obj.ToString(), out _result);
+            bool.TryParse(obj.ToString(), out _result);
 
             DialogHost.CloseDialogCommand.Execute(null, null);
         }

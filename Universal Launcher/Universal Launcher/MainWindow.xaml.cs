@@ -28,12 +28,14 @@ namespace Universal_Launcher
             typeof(Slider),
             typeof(Expander),
             typeof(Hyperlink),
-            typeof(PasswordBox),
+            typeof(PasswordBox)
         };
 
         public MainWindow()
         {
             InitializeComponent();
+
+            IoCContainer.Instanse.RegisterSingleton((IShowMessage)this);
         }
 
         #region Drag-n-Move
@@ -51,8 +53,8 @@ namespace Universal_Launcher
         }
 
         /// <summary>
-        /// Возможно на запрещенном контроле есть нечто, не входящее в этот список.
-        /// Чтобы контролы в списке были полностью доступны, проверяем их родителей
+        ///     Возможно на запрещенном контроле есть нечто, не входящее в этот список.
+        ///     Чтобы контролы в списке были полностью доступны, проверяем их родителей
         /// </summary>
         /// <param name="control"></param>
         /// <returns></returns>
@@ -70,7 +72,6 @@ namespace Universal_Launcher
 
             return FindForbiddenParent(parent);
         }
-
 
         #endregion
 
@@ -96,20 +97,22 @@ namespace Universal_Launcher
             DialogHost.CloseOnClickAway = false;
 
             DialogHost.Show(content, "DialogHost");
-            try
-            {
-                await Task.Run(action);
 
-                return true;
-            }
-            catch
+            var result = await Task.Run(() =>
             {
-                return false;
-            }
-            finally
-            {
-                DialogHost.CloseDialogCommand.Execute(null, null);
-            }
+                try
+                {
+                    action();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            });
+
+            DialogHost.CloseDialogCommand.Execute(null, null);
+            return result;
         }
 
         private bool CheckHost()

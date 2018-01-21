@@ -10,17 +10,22 @@
         xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStyle="None" Height="520" Width="346"
-        mc:Ignorable="d" SizeToContent="Height" 
+        mc:Ignorable="d" SizeToContent="Height"
         ResizeMode="NoResize"
         PreviewMouseLeftButtonDown="OnDragMove">
-
 
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Width="Auto" Height="Auto">
-        <materialDesign:Flipper HorizontalAlignment="Stretch" 
+        <materialDesign:Flipper HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Background="{DynamicResource PrimaryHueDarkBrush}">
             <materialDesign:Flipper.FrontContent>
@@ -33,7 +38,9 @@
         </materialDesign:Flipper>
 
         <materialDesign:DialogHost x:Name="DialogHost"
-                                   Identifier="DialogHost"/>
+                                   Identifier="DialogHost"
+                                   MinWidth="100"
+                                   MinHeight="100"/>
     </Grid>
 
 </Window>

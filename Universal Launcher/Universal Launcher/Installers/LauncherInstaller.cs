@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Universal_Launcher.Properties;
 using Universal_Launcher.Singleton;
 using Universal_Launcher.ViewModels;
 
@@ -48,10 +49,10 @@ namespace Universal_Launcher.Installers
             // download all needed
             DownloadingViewModel download;
 
-            download = new DownloadingViewModel(Properties.Resources.UpdaterLink, unpackedUpdName);
+            download = new DownloadingViewModel(Resources.UpdaterLink, unpackedUpdName);
             await _showMessageService.ShowWorkerAsync(download, () => download.Start());
 
-            download = new DownloadingViewModel(Properties.Resources.LauncherLink, unpackedLaunName);
+            download = new DownloadingViewModel(Resources.LauncherLink, unpackedLaunName);
             await _showMessageService.ShowWorkerAsync(download, () => download.Start());
 
             // extract all of it

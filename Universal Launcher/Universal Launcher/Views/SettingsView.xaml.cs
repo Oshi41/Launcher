@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.Devices;
 namespace Universal_Launcher.Views
 {
     /// <summary>
-    /// Логика взаимодействия для SettingsView.xaml
+    ///     Логика взаимодействия для SettingsView.xaml
     /// </summary>
     public partial class SettingsView : UserControl
     {
@@ -22,23 +22,20 @@ namespace Universal_Launcher.Views
             // получаем 80% от свободной памяти в МБ
             var maxMem = info.AvailablePhysicalMemory / 1024 / 1024 / 10 * 8;
             Slider.Maximum = Math.Max(maxMem, 2048);
+            Slider.Minimum = 1024;
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            App.Current.Shutdown(1);
+            Application.Current.Shutdown(1);
         }
 
         private void CollapseExpander(object sender, RoutedEventArgs e)
         {
             if (Expander.IsExpanded)
-            {
                 Expander.IsExpanded = false;
-            }
             else
-            {
                 Flipper.FlipCommand.Execute(null, null);
-            }
         }
     }
 }

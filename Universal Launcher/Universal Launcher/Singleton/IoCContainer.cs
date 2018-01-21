@@ -35,9 +35,10 @@ namespace Universal_Launcher.Singleton
 
         public object GetInstance(Type serviceType)
         {
-            Func<object> creator;
-            if (_registrations.TryGetValue(serviceType, out creator))
-                return creator();
+            foreach (var registration in _registrations)
+                if (registration.Key == serviceType
+                    || serviceType.IsAssignableFrom(registration.Key))
+                    return registration.Value();
 
             if (!serviceType.IsAbstract)
                 return CreateInstance(serviceType);

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Threading;
 
 namespace Universal_Launcher
 {
@@ -8,5 +9,15 @@ namespace Universal_Launcher
     public partial class App : Application
     {
         public static string ProjectName = "Titan Project";
+
+        public App()
+        {
+            DispatcherUnhandledException += Excep;
+        }
+
+        private void Excep(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message);
+        }
     }
 }

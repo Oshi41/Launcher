@@ -17,15 +17,18 @@ namespace Universal_Launcher.ViewModels
     {
         public MainViewModel()
         {
-            // подписываюсь на событие при полной готовности к загрузке
-            // иначе мы не получим IPasswordService
-            Application.Current.LoadCompleted += Initialize;
+            // тут завожу коману, в которой инциализирую можель при загрузке
+            InitCommand = new RelayCommand(Initialize);
+
+            IoCContainer.Instanse.RegisterSingleton((INameService)this);
+            if (!Directory.Exists(RootFolder))
+                Directory.CreateDirectory(RootFolder);
         }
 
-        private async void Initialize(object sender, EventArgs eventArgs)
+        private void Initialize()
         {
-            //отписались от процесса инициализации
-            Application.Current.Activated -= Initialize;
+            //очищаю комманду
+            InitCommand = new RelayCommand(() => { });
 
             RefreshServersCommand = new RelayCommandAsync(OnRefreshServers);
             StartCommand = new RelayCommandAsync(OnStart, OnCanStart);
@@ -76,6 +79,8 @@ namespace Universal_Launcher.ViewModels
         public ICommand RefreshServersCommand { get; set; }
 
         public ICommand StartCommand { get; set; }
+
+        public ICommand InitCommand { get; set; }
 
         #endregion
 
@@ -216,17 +221,24 @@ namespace Universal_Launcher.ViewModels
 
         private async Task<bool> CheckInstall()
         {
-            var md5Checker = new HashChecker();
-            var current = await Task.Run(() => md5Checker.CreateMd5ForFolder(Path.Combine(RootFolder, "mods")));
-            if (!current.Equals(CurrentServer.MD5))
-                await _popupMessageService.ShowWorkerAsync("",
-                    () => Directory.Delete(SettingsViewModel.GetBaseFolder, true));
+            if (Directory.Exists(SettingsViewModel.GetBaseFolder))
+            {
+                var md5Checker = new HashChecker();
+                var current = await Task.Run(() => md5Checker.CreateMd5ForFolder
+                    (Path.Combine(SettingsViewModel.GetBaseFolder, "mods")));
 
-            if (Directory.Exists(RootFolder))
+                // MD5 сумма сошлась
+                //if (current.Equals(CurrentServer.MD5))
+                //    return true;
                 return true;
 
-            var installer = new FolderDownloader(CurrentServer.DownloadLink, RootFolder, true);
+                if (!current.Equals(CurrentServer.MD5))
+                    await _popupMessageService.ShowWorkerAsync("Принудительно очищаем папку",
+                        () => Directory.Delete(SettingsViewModel.GetBaseFolder, true));
+            }
 
+            var installer = new FolderDownloader(CurrentServer.DownloadLink,
+                SettingsViewModel.GetBaseFolder, true);
             return await installer.Begin();
         }
 
@@ -243,7 +255,9 @@ namespace Universal_Launcher.ViewModels
 
         #region INameService
 
-        public string RootFolder { get; private set; }
+        public string RootFolder { get; private set; } = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            App.ProjectName);
 
         public string SettingsPath => Path.Combine(RootFolder ?? string.Empty, "Settings.xml");
 

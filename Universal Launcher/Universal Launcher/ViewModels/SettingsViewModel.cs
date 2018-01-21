@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Universal_Launcher.Installers;
 using Universal_Launcher.Models;
 using Universal_Launcher.MVVM;
+using Universal_Launcher.Properties;
 using Universal_Launcher.Singleton;
 
 namespace Universal_Launcher.ViewModels
@@ -21,7 +22,7 @@ namespace Universal_Launcher.ViewModels
 
             OpenFolder = new RelayCommand(OnOpenFolder);
             DeleteFolder = new RelayCommandAsync(OnDeleteFolder, CanDeleteFolder);
-            OpenSite = new RelayCommand(() => Process.Start(Properties.Resources.ElyLoginLink));
+            OpenSite = new RelayCommand(() => Process.Start(Resources.ElyLoginLink));
             UpdateLauncher = new RelayCommandAsync(OnUpdateLauncher);
 
             _localPath =
@@ -147,8 +148,8 @@ namespace Universal_Launcher.ViewModels
         ///     Кол-во используемой памяти при старте
         /// </summary>
         public int Memory
-        {
-            get => _memory;
+        {   // ограничиваю мин. память на 1024
+            get => Math.Max(_memory, 1024);
             set => Set(ref _memory, value);
         }
 

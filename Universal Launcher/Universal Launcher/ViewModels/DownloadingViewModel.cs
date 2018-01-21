@@ -12,18 +12,6 @@ namespace Universal_Launcher.ViewModels
 {
     public class DownloadingViewModel : ViewModelBase
     {
-        #region Fields
-
-        private ManualResetEvent _reset;
-        private readonly string _uri;
-        private readonly string _filename;
-        private int _speed;
-        private int _progress;
-        private readonly WebClient _client;
-        private readonly DownloadingArbiter _arbiter;
-
-        #endregion
-
         /// <summary>
         ///     Вид-Модель для скачивания файла
         /// </summary>
@@ -39,6 +27,21 @@ namespace Universal_Launcher.ViewModels
             _arbiter = new DownloadingArbiter();
             Cancel = new RelayCommand(() => _client.CancelAsync(), () => _client.IsBusy);
         }
+
+        // Command
+        public ICommand Cancel { get; set; }
+
+        #region Fields
+
+        private ManualResetEvent _reset;
+        private readonly string _uri;
+        private readonly string _filename;
+        private int _speed;
+        private int _progress;
+        private readonly WebClient _client;
+        private readonly DownloadingArbiter _arbiter;
+
+        #endregion
 
         #region Properties
 
@@ -58,14 +61,10 @@ namespace Universal_Launcher.ViewModels
 
         #endregion
 
-        // Command
-        public ICommand Cancel { get; set; }
-
         #region Methods
 
         private void OnComplited(object sender, AsyncCompletedEventArgs e)
         {
-            DialogHost.CloseDialogCommand.Execute(null, null);
             Success = e.Error == null;
             _arbiter.Stop();
             _reset.Set();

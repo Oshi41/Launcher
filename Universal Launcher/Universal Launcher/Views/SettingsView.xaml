@@ -1,11 +1,10 @@
 ﻿<UserControl x:Class="Universal_Launcher.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Universal_Launcher.Views"
-             xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <GroupBox Background="{DynamicResource PrimaryHueDarkBrush}" Height="Auto">
@@ -15,7 +14,6 @@
                 <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
             </Style>
 
-            <converters:MathConverter x:Key="MathConverter" Operation="Divide"/>
         </GroupBox.Resources>
 
         <GroupBox.Header>
@@ -50,7 +48,7 @@
 
             <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10">
                 <Run Text="Версия" />
-                <Run Text="{Binding Version}" />
+                <Run Text="{Binding Version, Mode=OneWay}" />
             </TextBlock>
 
             <Grid Grid.Row="1" Margin="5,0,0,10">
@@ -66,7 +64,8 @@
                         <ColumnDefinition Width="70" />
                     </Grid.ColumnDefinitions>
 
-                    <Slider Value="{Binding Memory}" Minimum="1024"
+                    <Slider Value="{Binding Memory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            Minimum="1024"
                             IsSnapToTickEnabled="True" TickFrequency="128"
                             IsMoveToPointEnabled="True"
                             AutoToolTipPlacement="TopLeft"
@@ -94,8 +93,6 @@
                       Foreground="{DynamicResource MaterialDesignBodyLight}"
                       Style="{StaticResource MaterialDesignAccentCheckBox}" />
 
-
-
             <Button Grid.Row="4" Style="{StaticResource MaterialDesignFlatButton}"
                     HorizontalAlignment="Left"
                     Command="{Binding UpdateLauncher}">
@@ -114,14 +111,14 @@
                                 <Style TargetType="Hyperlink" BasedOn="{StaticResource MaterialDesignBody2Hyperlink}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding NeedToUpdate}" Value="True">
-                                            <Setter Property="Foreground" Value="YellowGreen"/>
+                                            <Setter Property="Foreground" Value="YellowGreen" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Hyperlink.Style>
-                            
+
                             <Run Text="Обновить лаунчер" />
-                            
+
                         </Hyperlink>
 
 

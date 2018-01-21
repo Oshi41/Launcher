@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using System.Xml.Serialization;
+using Universal_Launcher.Properties;
 using Universal_Launcher.Settings;
 using Universal_Launcher.Singleton;
 
@@ -10,6 +11,12 @@ namespace Universal_Launcher.Models
 {
     public class SettingsModel
     {
+        #region Field
+
+        private readonly IFolderService _folderService;
+
+        #endregion
+
         public SettingsModel()
         {
             _folderService = IoCContainer.Instanse.Resolve<IFolderService>();
@@ -18,13 +25,6 @@ namespace Universal_Launcher.Models
         #region Props
 
         public Settings.Settings Settings { get; set; }
-
-        #endregion
-
-        #region Field
-
-        private readonly IFolderService _folderService;
-
 
         #endregion
 
@@ -109,7 +109,7 @@ namespace Universal_Launcher.Models
             {
                 using (var client = new WebClient())
                 {
-                    client.DownloadFile(new Uri(Properties.Resources.LauncherSettingsLink), tempName);
+                    client.DownloadFile(new Uri(Resources.LauncherSettingsLink), tempName);
                     client.Dispose();
                 }
 

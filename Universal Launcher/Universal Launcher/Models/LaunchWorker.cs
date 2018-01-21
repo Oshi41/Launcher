@@ -162,8 +162,8 @@ namespace Universal_Launcher.Models
 
         private string GetBaseJavaArgs(string java64Path, int memory)
         {
-            //var temp = $"\"{java64Path}\" ";                    // Java executable path
-            var temp = $"-Xmx{memory}M "; // Set min amount of memory
+            var temp = $"\"{java64Path}\" ";                    // Java executable path
+            temp += $"-Xmx{memory}M "; // Set min amount of memory
 
             // some base parameters
             temp += "-Dfml.ignoreInvalidMinecraftCertificates=true " +
