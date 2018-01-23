@@ -22,7 +22,7 @@ namespace Universal_Launcher.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Universal_Launcher.Properties {
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Universal_Launcher.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Universal_Launcher.Properties {
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Universal_Launcher.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на https://authserver.ely.by/api/users/profiles/minecraft/.
         /// </summary>
-        internal static string ElyAuthorizationLink {
+        public static string ElyAuthorizationLink {
             get {
                 return ResourceManager.GetString("ElyAuthorizationLink", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Universal_Launcher.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на https://account.ely.by/login.
         /// </summary>
-        internal static string ElyLoginLink {
+        public static string ElyLoginLink {
             get {
                 return ResourceManager.GetString("ElyLoginLink", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Universal_Launcher.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на https://authserver.ely.by/auth/authenticate.
         /// </summary>
-        internal static string ElySignInLink {
+        public static string ElySignInLink {
             get {
                 return ResourceManager.GetString("ElySignInLink", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Universal_Launcher.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/qvBLvXBo3NJXB5.
         /// </summary>
-        internal static string LauncherLink {
+        public static string LauncherLink {
             get {
                 return ResourceManager.GetString("LauncherLink", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Universal_Launcher.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/fHMksVWM3Pw3Dx.
         /// </summary>
-        internal static string LauncherSettingsLink {
+        public static string LauncherSettingsLink {
             get {
                 return ResourceManager.GetString("LauncherSettingsLink", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Universal_Launcher.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/kbzF2VrR3Q2uUT.
         /// </summary>
-        internal static string UpdaterLink {
+        public static string UpdaterLink {
             get {
                 return ResourceManager.GetString("UpdaterLink", resourceCulture);
             }
