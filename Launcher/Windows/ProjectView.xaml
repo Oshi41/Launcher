@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Launcher.Windows.ProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Launcher.Windows"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:Launcher.View_Models"
+             mc:Ignorable="d" 
+             HorizontalAlignment="Stretch"
+             d:DesignHeight="50" d:DesignWidth="250"
+             d:DataContext="{d:DesignInstance Type={x:Type viewModels:ProjectViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="10,0,5,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox materialDesign:HintAssist.Hint="Выберите сервер"
+                  Margin="0,0,15,0"
+                  FontSize="18"
+                  MinHeight="45" 
+                  ItemsSource="{Binding Servers}"
+                  SelectedItem="{Binding ChoosenServer}"
+                  TabIndex="3">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid  MinWidth="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=ActualWidth}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="●"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Red" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ServerStatistics.ServerUp}" Value="True">
+                                            <Setter Property="Foreground" Value="DarkGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Name}"
+                                           HorizontalAlignment="Stretch" />
+
+                        <StackPanel Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding Path=ServerStatistics.ServerUp, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock FontSize="9">
+                                <Run Text="Ping "/>
+                                <Run Text="{Binding Path=ServerStatistics.CurrentPlayers}"/>
+                                <Run Text=" / "/>
+                                <Run Text="{Binding Path=ServerStatistics.MaximumPlayers}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Viewbox Grid.Column="1" 
+                 MaxHeight="32"
+                 MaxWidth="32"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center">
+            <Button Margin="7 7 0 7"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Command="{Binding Path=RefreshCommand}"
+                    Foreground="{StaticResource SecondaryAccentBrush}"
+                    ToolTip="Обвновить">
+                <Viewbox>
+                    <materialDesign:PackIcon Kind="Refresh"/>
+                </Viewbox>
+            </Button>
+
+        </Viewbox>
+
+    </Grid>
+</UserControl>
+    

@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="Launcher.Windows.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Launcher.Windows"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:Launcher.View_Models"
+             xmlns:converters="clr-namespace:Launcher.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="400">
+    
+    <UserControl.DataContext>
+        <viewModels:MainViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <Storyboard x:Key="blinkBackground"
+                    Duration="0:0:1"
+                    RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames
+                Storyboard.TargetName="lblStoryboard"
+                Storyboard.TargetProperty="Background.(SolidColorBrush.Color)">
+                <DiscreteColorKeyFrame KeyTime="0:0:0" Value="{Binding Source={StaticResource SecondaryAccentBrush}, Path=Color}" />
+                <DiscreteColorKeyFrame KeyTime="0:0:0.5" Value="DarkRed" />
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames
+                Storyboard.TargetName="lblStoryboard"
+                Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)">
+                <DiscreteColorKeyFrame KeyTime="0:0:0" Value="DarkRed" />
+                <DiscreteColorKeyFrame KeyTime="0:0:0.5" Value="{Binding Source={StaticResource SecondaryAccentBrush}, Path=Color}" />
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <converters:SwitchConverter x:Key="IconConverer"
+                                    Default="Settings">
+            <converters:Case When="true" Then="StepBackward2"/>
+        </converters:SwitchConverter> 
+    </UserControl.Resources>
+
+    <materialDesign:DialogHost>
+        <GroupBox>
+            <GroupBox.Header>
+                <Grid Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Click="PerformFlip"
+                            Command="{Binding Path=SwitchCommand}"
+                            CommandParameter="{Binding ElementName=FlipperControl, Path=IsFlipped}"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                            Padding="4"
+                            HorizontalContentAlignment="Left">
+                        
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Setter Property="Foreground" Value="{DynamicResource SecondaryAccentBrush}"/>
+                                
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=SettingsViewModel.NeedToUpdate}" Value="True"/>
+                                            <Condition Binding="{Binding ElementName=FlipperControl, Path=IsFlipped}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </MultiDataTrigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Viewbox>
+                                <materialDesign:PackIcon Kind="{Binding ElementName=FlipperControl, Path=IsFlipped, Converter={StaticResource IconConverer}}"/>
+                            </Viewbox>
+                            
+                            <!--<TextBlock Text="Settings"
+                                       VerticalAlignment="Center"
+                                       Margin="2 0 2 0"/>-->
+                        </StackPanel>
+                    </Button>
+                    
+                    <TextBlock Grid.ColumnSpan="3"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="Times New Roman" FontSize="25"
+                               Foreground="{StaticResource SecondaryAccentBrush}"
+                               Text="{Binding Version, StringFormat={}Version{0}}"/>
+
+                    <Button Grid.Column="2"
+                            Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            Click="Collapse"
+                            Margin="5 0"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                            Padding="4"
+                            Foreground="{DynamicResource SecondaryAccentBrush}"
+                            HorizontalContentAlignment="Left">
+                        <Viewbox>
+                            <materialDesign:PackIcon Kind="Minus"/>
+                        </Viewbox>
+                    </Button>
+
+                    <Button Grid.Column="3"
+                            Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            Click="OnClose"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                            Padding="4"
+                            Foreground="{DynamicResource SecondaryAccentBrush}"
+                            HorizontalContentAlignment="Left">
+                        <Viewbox>
+                            <materialDesign:PackIcon Kind="Close"/>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </GroupBox.Header>
+            
+            <materialDesign:Flipper HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    x:Name="FlipperControl">
+                <materialDesign:Flipper.FrontContent>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <local:AuthView Grid.Row="0"
+                                        DataContext="{Binding Path=AuthViewModel}"/>
+
+                        <local:ProjectView Grid.Row="1"
+                                           Margin="0,30,0,15"
+                                           VerticalAlignment="Bottom"
+                                           DataContext="{Binding Path=ProjectViewModel}"/>
+
+                        <!-- Старт игры-->
+                        <Button Grid.Row="2"
+                                Command="{Binding Path=StartCommand}"
+                                VerticalAlignment="Bottom"
+                                FontSize="18" 
+                                MinHeight="45"
+                                Content="Начать игру"
+                                IsDefault="True" />
+
+                    </Grid>
+                </materialDesign:Flipper.FrontContent>
+                
+                <materialDesign:Flipper.BackContent>
+                    <local:SettingsView DataContext="{Binding Path=SettingsViewModel}"
+                                        Margin="5"/>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+            
+        </GroupBox>
+    </materialDesign:DialogHost>
+
+</UserControl>

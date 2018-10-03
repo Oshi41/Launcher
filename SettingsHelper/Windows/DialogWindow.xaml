@@ -1,0 +1,39 @@
+﻿<Window x:Class="SettingsHelper.Windows.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SettingsHelper.Windows"
+        xmlns:service="clr-namespace:SettingsHelper.Service"
+        mc:Ignorable="d"
+        Title="{Binding Path=Title}"
+        Height="500" 
+        Width="400"
+        d:DataContext="{d:DesignInstance Type={x:Type service:IDialogWindowViewModel}}">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ContentControl Content="{Binding RelativeSource={RelativeSource  AncestorType=Window}, Path=Content}"/>
+
+        <DockPanel Grid.Row="1"
+                   HorizontalAlignment="Right">
+            <Button Content="Close"
+                    x:Name="CloseButton"
+                    Command="{Binding CloseCommand}"
+                    Margin="5 0"
+                    MinWidth="{Binding ElementName=OkButton, Path=ActualWidth}"
+                    Click="CloseWindow"/>
+
+            <Button Content="Ok"
+                    x:Name="OkButton"
+                    Command="{Binding OkCommand}"
+                    MinWidth="{Binding ElementName=CloseButton, Path=ActualWidth}"
+                    Click="SetResult"/>
+
+        </DockPanel>
+    </Grid>
+</Window>

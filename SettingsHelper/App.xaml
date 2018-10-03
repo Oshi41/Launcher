@@ -1,0 +1,43 @@
+﻿<Application x:Class="SettingsHelper.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SettingsHelper"
+             xmlns:converter="clr-namespace:SettingsHelper.Converter"
+             xmlns:new="clr-namespace:SettingsHelper.ViewModels.New"
+             xmlns:controls="clr-namespace:SettingsHelper.Windows.Controls"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/accent/MaterialDesignColor.Amber.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="ErrorBrush" Color="DarkRed"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="DarkOrange"/>
+            <SolidColorBrush x:Key="SuccessBrush" Color="DarkGreen"/>
+
+            <converter:CaseConverter x:Key="StatusBrushConverter"
+                                     DefaultValue="Black">
+                <converter:Case If="ErrorBrush"
+                                Value="{StaticResource ErrorBrush}"/>
+                <converter:Case If="WarningBrush"
+                                Value="{StaticResource WarningBrush}"/>
+                <converter:Case If="SuccessBrush"
+                                Value="{StaticResource SuccessBrush}"/>
+            </converter:CaseConverter>
+            
+            <!-- DATA TEMPLATES -->
+            <DataTemplate DataType="{x:Type new:ServerViewModelNew}">
+                <controls:ServerView/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
